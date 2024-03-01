@@ -1,0 +1,35 @@
+﻿
+@model Estructura.Negocio.Empleado
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Agregar Empleados</h2>
+
+@using (Html.BeginForm("Form", "Empleado", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="container-fluid">
+        <div class="row pb-3">
+            <div class="col-3">
+                @Html.LabelFor(model => model.Nombre)
+                @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control" })
+            </div>
+            <div class="col-3">
+                @Html.LabelFor(model => model.Puesto.IdPuesto)
+                @Html.DropDownListFor(model => model.Puesto.IdPuesto, new SelectList(Model.Puesto.Puestos, "IdPuesto", "Descripcion"), "Selecciona un puesto", new { @class = "form-control" })
+            </div>
+            <div class="col-3">
+                @Html.LabelFor(model => model.Departamento.IdDepartamento)
+                @Html.DropDownListFor(model => model.Departamento.IdDepartamento, new SelectList(Model.Departamento.Departamentos, "IdDepartamento", "Descripcion"), "Selecciona un departamento", new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="row pt-2">
+            <div class="col-3">
+                <input type="submit" value="Guardar" class="btn bg-info" />
+            </div>
+        </div>
+
+    </div>
+}

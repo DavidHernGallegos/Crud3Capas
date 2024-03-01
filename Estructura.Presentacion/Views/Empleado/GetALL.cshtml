@@ -1,0 +1,67 @@
+﻿@model Estructura.Negocio.Empleado
+@{
+    ViewBag.Title = "GetALL";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Empleados</h2>
+
+
+<div class="container-fluid">
+    @using (Html.BeginForm("BuscarEmpleado", "Empleado", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="row pb-3">
+            <div class="col-3">
+                @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control", @placeholder = "Buscar por nombre" })
+            </div>
+            <div class="col-3">
+                <div>
+                    <input type="submit" value="Buscar" class="btn bg-info" />
+
+                </div>
+            </div>
+        </div>
+    }
+    <div>
+        <a href="@Url.Action("Form", "Empleado")" class="btn btn-success"> Agregar</a>
+
+    </div>
+
+    <table class="table text-center">
+        <thead>
+            <tr>
+                <th>Editar</th>
+                <th>IdEmpleado</th>
+                <th>Nombre</th>
+                <th>IdPuesto</th>
+                <th>Puesto</th>
+                <th>IdDepartamento</th>
+                <th>Departamento</th>
+                <th>Eliminar</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Estructura.Negocio.Empleado empleado in Model.Empleados)
+            {
+                <tr>
+                    <td>
+                        <a href="@Url.Action("Form", "Empleado", new{idEmpleado = empleado.IdEmpleado})" class="btn btn-outline-warning"> Editar</a>
+                    </td>
+
+                    <td>@empleado.IdEmpleado</td>
+                    <td>@empleado.Nombre</td>
+                    <td>@empleado.Puesto.IdPuesto</td>
+                    <td>@empleado.Puesto.Descripcion</td>
+                    <td>@empleado.Departamento.IdDepartamento</td>
+                    <td>@empleado.Departamento.Descripcion</td>
+
+                    <td>
+                        <a href="@Url.Action("Delete", "Empleado" , new{idEmpleado = empleado.IdEmpleado})" class="btn btn-outline-danger"> Eliminar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+
+</div>
